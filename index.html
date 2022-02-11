@@ -1,0 +1,1129 @@
+<!--StAuth10244: I Ali El Cheikh Ali, 000760145 certify that this material is my original work. No other person's work has been used without due acknowledgement. I have not made my work available to anyone else.-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Emergency Services Locator</title>
+
+    <style>
+        
+        /* HUD area */
+        #HUD
+        {
+            position: absolute;
+
+        }
+
+        #HUD, 
+        #over-lay
+        {
+            position: absolute;
+            left: 1%;
+            top: 8%;
+        }
+
+        #HUD,
+        #dark-mode
+        {
+            position: absolute;
+            right: 1%;
+            top: 8%;
+        }
+
+        #HUD,
+        #light-mode
+        {
+            position: absolute;
+            right: 1%;
+            top:12%;
+        }
+
+        /* Over-lay for Search bar section */
+        #over-lay
+        {
+            background-color: #222831;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        #text-overlay
+        {
+            font-family: sans-serif;
+            color: #EEEEEE;
+        }
+
+        #address
+        {
+            border-radius: 10px;
+        }
+
+        #geocode
+        {
+            font-family: sans-serif;
+            background-color: #00ADB5;
+            border-radius: 8px;
+            border-color: #EEEEEE;
+        }
+
+        #coords
+        {
+            font-family: sans-serif;
+            
+            color: #EEEEEE;
+        }
+
+        #dark-mode
+
+        {
+            padding: 7px;
+            border-radius: 7px;
+            border-color: #EEEEEE;
+            border-width: thin;
+            background-color: #222831;
+            color: #EEEEEE;
+            
+        }
+
+        #light-mode
+        {
+            padding: 7px;
+            border-radius: 7px;
+            border-color: #EEEEEE;
+            border-width: thin;
+            background-color: #EEEEEE;
+            
+        }
+
+        /* Map & title portion */
+
+        #title
+        {
+            text-align: center;
+            background-color: #00ADB5;
+            border-bottom: solid;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        h2
+        {
+            margin-bottom: 0%;
+            padding: 10px;
+            font-size: 26px;
+            font-family: sans-serif;
+            
+        }
+
+        #map,
+        #title
+        {
+            
+            margin-right:10px;
+            margin-left:10px;
+        }
+        #map
+        {
+            height: 75%;
+            
+            
+            border-top: 0px;
+            text-align: center;
+            border-radius: 5px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+        }
+
+        html,
+        body 
+        {
+            height: 100%;
+            width:100%;
+            margin: 0;
+            padding: 0;
+            
+            overflow-x: hidden;
+            background-color: #393E46;
+        }
+
+        #buttons
+        {
+            background-color: #222831;
+            border-radius: 8px;
+            margin-left: 10px;
+            margin-right: 5px;
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 17px;
+        }
+
+        #buttons button
+        {
+            
+            padding: 7px;
+            border-radius: 7px;
+            border-color: #EEEEEE;
+            border-width: thin;
+            background-color: #00ADB5;
+            
+        }
+
+        #fire_Service,
+        #hospital_Service,
+        #police_Service
+        {
+            margin-top: 10px;
+            margin-left: 15px;
+            margin-bottom: 10px;
+        }
+
+
+        #add_Services
+        {
+            font-weight: bold;
+            
+            margin-top: 10px;
+           
+            
+        }
+
+        #Filter
+        {
+            
+            font-weight: bold;
+            font-size: 22px;
+            font-family: sans-serif;
+            color: #EEEEEE;
+            border-bottom: solid 2px;
+            
+            
+        }
+
+        /*Right Section */
+        #right-section
+        {
+            background-color: #222831;
+            margin-right: 10px;
+            margin-left: 5px;
+            text-align: center;
+            border-radius: 8px;
+            padding-top: 5px;
+        }
+
+        #dir-features
+        {
+            font-weight: bold;
+            font-size: 22px;
+            font-family: sans-serif;
+            color: #EEEEEE;
+            border-bottom: solid 2px;
+            margin-bottom: 10px;
+            text-align: center;
+            
+        }
+        
+        #all_emergency
+        {
+            
+            min-width: 450px;
+            text-align: center;
+            font-size: 20px;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-weight: bold;
+            border-color: #EEEEEE;
+            background-color: #393E46;
+            color: #EEEEEE;
+        }
+
+        #Geolocate
+        {
+            margin: 5px;
+            padding: 7px;
+            border-radius: 7px;
+            border-color: #393E46;
+            border-width: thin;
+            border-color: #EEEEEE;
+            border-width: thin;
+            background-color: #00ADB5;
+            
+        }
+
+        #Directions
+        {
+            margin: 5px;
+            padding: 7px;
+            border-radius: 7px;
+            border-color: #393E46;
+            border-width: thin;
+            font-weight: bold;
+            border-color: #EEEEEE;
+            border-width: thin;
+            background-color: #00ADB5;
+        }
+
+
+        /* Box Left + Right */
+        #wrapper
+        {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 50%);
+        }
+
+        .box-right
+        {
+            align-self: stretch;
+            
+        }
+        .box-left
+        {
+            align-self: start;
+            
+        }
+        
+        
+    </style>
+</head>
+
+<body>
+    <div id="title">
+    <h2>Emergency Services Locator</h2>
+    </div>
+
+    <div id="HUD"></div>
+        <div id="map">
+
+        </div> <br >
+    </div>
+    
+    <button id="dark-mode">Dark-mode</button>
+    <button id="light-mode">Light-mode</button>
+
+    <div id="wrapper">
+        <div class="box-left">
+            
+            <div id="buttons">
+                <strong id="Filter">Filter</strong>
+                <br>
+                
+
+                <button id="fire_Service">Show Fire Stations Only</button>
+                <button id="hospital_Service">Show Hospitals Only</button>
+                <button id="police_Service">Show Police Stations Only</button>
+                <br>
+                <button id="add_Services">All Emergency Services</button>
+            </div>
+        </div>
+
+        <div class="box-right">
+            <div id="right-section">
+                <strong id="dir-features">Directions</strong>
+                <br>
+                
+                
+                
+                <button id="Geolocate">Geolocate</button>
+                
+                    
+                    <div class="form-group">
+                        <select class="form-control" name="" id="all_emergency" >
+                            <option value="" disabled selected hidden>Choose a location....</option>
+                        </select>
+                    </div>
+
+                    <button id="Directions">Directions</button>
+                
+            </div>
+        </div>
+
+        <div id="over-lay">
+            <strong style="font-size:18px" id="text-overlay">Search Address:</strong>
+            <input type="text" id="address" size="40" style="font-size:18px" />
+            <br>
+            <button id="geocode" style="font-size:18px">Geocode</button>
+            <br />
+            <span id="coords" style="font-size:18px"></span>
+        </div>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAoSkJci85uG8jGOJFy9SvX6BEZbzX2fQ&callback=initMap&v=weekly"
+        async>
+    </script>
+
+    <!-- Loads in scripts for Fire stations, hospitals, and police stations -->
+    <script src="fire_stations.js"></script>
+    <script src="hospitals.js"></script>
+    <script src="police_stations.js"></script>
+
+    <script src="all_emergency.js"></script>
+
+    </div>
+
+    <script>
+        
+
+        document.getElementById("light-mode").addEventListener("click", initMap);
+
+        function initMap()
+        {
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+
+            
+            map = new google.maps.Map(document.getElementById("map"), 
+            {
+                center: {lat: 43.2592, lng: -79.8453},
+                zoom: 11,
+                mapTypeControl: false,
+                fullscreenControl: false,
+                
+            });
+
+            
+
+            infowindow = new google.maps.InfoWindow();
+            
+            marker_clicked = function()
+            {
+                
+                infowindow.close();
+                infowindow.setContent(this.information);
+                infowindow.open(map, this);
+                
+                
+
+            }
+
+            let markers = [];
+            let markersHospital = [];
+            let markersPolice = [];
+            
+
+
+            //Fire Stations
+            for (i=0; i< fire_stations.length; i++)
+            {
+                if (fire_stations[i].properties.COMMUNITY == "Flamborough")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/F.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Hamilton")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/H.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Ancaster")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/A.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Dundas")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/D.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Stoney Creek")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/S.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Glanbrook")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/G.png";
+                else 
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/red-stars.png";
+
+
+                var contentString =   "<b><h3>Name: </b>" + fire_stations[i].properties.NAME + '</h3>'+ '<br>' + "<b>Location: </b>" + fire_stations[i].properties.ADDRESS + '<br><br>' + "<b>Community location: </b>" + fire_stations[i].properties.COMMUNITY,
+
+                marker_fire_stations = new google.maps.Marker({
+                    position: {lat: parseFloat(fire_stations[i].properties.LATITUDE),
+                               lng: parseFloat(fire_stations[i].properties.LONGITUDE)},
+                               title: fire_stations[i].properties.NAME,
+                               information: contentString,
+                               icon: new_icon
+                    });
+
+                marker_fire_stations.setMap(map);
+                marker_fire_stations.HES_EMS = fire_stations[i].properties.HES_EMS;
+                marker_fire_stations.addListener("click", marker_clicked);
+                markers.push(marker_fire_stations);
+                markersHospital.push(marker_fire_stations);
+                markersPolice.push(marker_fire_stations);
+
+            }
+
+            //Filtering for Fire Station Only
+            function filterFireStation()
+            {
+                for (i=0; i<markers.length; i++)
+                {
+                    if (markers[i].HES_EMS == "Yes" || markers[i].HES_EMS == "No")
+                    markers[i].setMap(map);
+                    else 
+                        markers[i].setMap(null);
+                }
+            }
+
+            document.getElementById("fire_Service").onclick =filterFireStation;
+            
+            
+            // Hospitals
+            for (x=0; x< hospitals.length; x++)
+            {
+                var contentStringHospital =   "<b><h3>Name: </b>" + hospitals[x].properties.NAME + '</h3>'+ '<br>' + "<b>Location: </b>" + hospitals[x].properties.ADDRESS + '<br><br>' + "<b>Type of Care: </b>" + hospitals[x].properties.TYPE,
+
+                marker_hospitals = new google.maps.Marker({
+                    position: {lat: parseFloat(hospitals[x].properties.LATITUDE),
+                               lng: parseFloat(hospitals[x].properties.LONGITUDE)},
+                    title: hospitals[x].properties.NAME,
+                    information: contentStringHospital,
+                    icon: new_icon = "http://maps.google.com/mapfiles/kml/pal4/icon55.png"
+                });
+
+                marker_hospitals.setMap(map);
+                marker_hospitals.HOSPITAL = hospitals[x].properties.HOSPITAL;
+                marker_hospitals.addListener("click", marker_clicked);
+                markers.push(marker_hospitals);
+                markersHospital.push(marker_hospitals);
+                markersPolice.push(marker_hospitals);
+
+            }
+
+            //Filtering for Hospitals Only
+            function filterHospital()
+            {
+                for (x=0; x<markersHospital.length; x++)
+                {
+                    if (markersHospital[x].HOSPITAL)
+                    markersHospital[x].setMap(map);
+                    else 
+                        markersHospital[x].setMap(null);
+                }
+            }
+
+            document.getElementById("hospital_Service").onclick =filterHospital;
+
+            
+            // Police Stations
+            for (y=0; y< police_stations.length; y++)
+            {
+                var contentStringPolice =   "<b><h3>Police Station: </b>" + police_stations[y].properties.NAME + '</h3>'+ '<br>' + "<b>Location: </b>" + police_stations[y].properties.ADDRESS + '<br><br>' + "<b>Station Number: </b>" + police_stations[y].properties.STATION,
+
+                marker_police_stations = new google.maps.Marker({
+                    position: {lat: parseFloat(police_stations[y].properties.LATITUDE),
+                               lng: parseFloat(police_stations[y].properties.LONGITUDE)},
+                    title: police_stations[y].properties.NAME,
+                    information: contentStringPolice,
+                    icon: new_icon = "http://maps.google.com/mapfiles/kml/pal4/icon39.png"
+                });
+
+                marker_police_stations.setMap(map);
+                marker_police_stations.STATION = police_stations[y].properties.STATION;
+                marker_police_stations.addListener("click", marker_clicked);
+                markers.push(marker_police_stations);
+                markersHospital.push(marker_police_stations);
+                markersPolice.push(marker_police_stations);
+            }
+
+
+            //Filtering for Police Stations only
+            function filterPolice()
+            {
+                for (y=0; y<markersHospital.length; y++)
+                {
+                    if (markersPolice[y].STATION)
+                    markersPolice[y].setMap(map);
+                    else 
+                        markersPolice[y].setMap(null);
+                }
+            }
+
+            document.getElementById("police_Service").onclick =filterPolice;
+
+
+            //Returning all markers on the map regardless of Emergency Service
+            function allServices()
+            {
+                for(i = 0; i< markers.length; i++)
+                {
+                    markers[i].setMap(map);
+                }
+            }
+            document.getElementById("add_Services").onclick = allServices;
+            var pos;
+
+            
+
+            //Shows your position on the map
+            /*function showPositionOnMap(position)
+            {
+            
+                user_location = new google.maps.Marker({
+                    position: {lat: position.coords.latitude, 
+                               lng: position.coords.longitude},
+
+                    title: "Your Position",
+                    //icon: "http://maps.google.com/mapfiles/kml/pal3/icon56.png",
+                    
+                });
+            
+            
+                user_location.setMap(map);
+            }*/
+            
+            document.getElementById("Geolocate").onclick = function()
+            {
+                if(navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude,
+                            };
+                            
+                            user_location = new google.maps.Marker({
+                            position: {lat: position.coords.latitude, 
+                               lng: position.coords.longitude},
+
+                                title: "Your Position",
+                                icon: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
+                    
+                            });
+                            
+
+                            userLocation = pos;
+
+                            infowindow.setPosition(pos);
+                            infowindow.setContent(`
+                                
+                                <strong>Your Location</strong><br>
+                                Latitude: ${pos.lat}<br>
+                                Longitude: ${pos.lng}`
+                            );
+                            infowindow.open(map);
+                            user_location.setMap(map);
+
+                        map.setCenter(pos);
+                    },
+                    () => {
+                        handleLocationError(true, infowindow, map.getCenter());
+                    }
+
+                    );
+                } 
+                else
+                {
+                    handleLocationError(false, infowindow, map.getCenter());
+                }
+
+            }
+
+            var dropdown = "";
+                
+                for(var z = 0; z < all_emergency.length;z++)
+                {
+                    dropdown += '<option value="' + all_emergency[z].properties.LATITUDE + all_emergency[z].properties.LONGITUDE + '">' + all_emergency[z].properties.ADDRESS + "</option>"
+                    
+                }
+                
+            
+            document.getElementById('all_emergency').innerHTML = dropdown;
+
+            //Geocoding Portion
+            geocoder = new google.maps.Geocoder();
+
+            //Directions Portion
+            directionsRenderer.setMap(map);
+
+            
+            //button.onclick = function() 
+            //{
+                //destination.assign(dropdown);
+            //}
+            
+            document.getElementById("Directions").onclick = dropdown;
+            function displayDirections(destination)
+            {
+                clearMarkers();
+
+
+                directionsRenderer.setMap(map);
+                
+
+                request = 
+                {
+                    origin: userLocation,
+                    destination: dropdown,
+                    travelMode: 'DRIVING'
+                };
+
+                directionsService.route(request, function(result,status){
+                
+                if(status == 'OK')
+                {
+                    DirectionsRenderer.setDirections(result);
+                }
+                });
+
+            }
+            
+
+            function codeAddress()
+            {
+                let address = document.getElementById("address").value;
+                var dest=[];
+
+                geocoder.geocode( {'address': address }, function(results,status){
+
+                if (status == 'OK')
+                {
+                    document.getElementById("coords").innerHTML 
+                    = "Coordinates: " + results[0].geometry.location.lat().toFixed(3) + ", " + 
+                                   results[0].geometry.location.lng().toFixed(3);
+
+                    
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map,
+                        icon: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
+                    });
+
+                    
+                }
+                else
+                {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+
+            });
+            }
+
+            document.getElementById("geocode").onclick= codeAddress;
+
+
+            function handleLocationError(browserGeolocation, infowindow, pos) 
+            {   
+            let errorMessage = browserGeolocation ? "Error: Cannot Find Geolocation " : "Error: Browser does not support geolocation service";
+            infowindow.setPosition(pos);
+            infowindow.setContent(errorMessage);
+            infowindow.open(map);
+
+            $('#gelocation-message .modal-body p').text(errorMessage);
+            $('#geolocation-message').modal('show');
+            }
+
+
+            document.getElementById("dark-mode").addEventListener("click", darkMode);
+
+            //Darkmode
+            function darkMode()
+            {
+                directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+
+            
+            map = new google.maps.Map(document.getElementById("map"), 
+            {
+                center: {lat: 43.2592, lng: -79.8453},
+                zoom: 11,
+                mapTypeControl: false,
+                fullscreenControl: false,
+                styles: [
+                    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                    {
+                        featureType: "administrative.locality",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }],
+                    },
+                    {
+                        featureType: "poi",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }],
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "geometry",
+                        stylers: [{ color: "#263c3f" }],
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#6b9a76" }],
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [{ color: "#38414e" }],
+                    },
+                    {
+                    featureType: "road",
+                    elementType: "geometry.stroke",
+                    stylers: [{ color: "#212a37" }],
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#9ca5b3" }],
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry",
+                        stylers: [{ color: "#746855" }],
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry.stroke",
+                        stylers: [{ color: "#1f2835" }],
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#f3d19c" }],
+                    },
+                    {
+                        featureType: "transit",
+                        elementType: "geometry",
+                        stylers: [{ color: "#2f3948" }],
+                    },
+                    {
+                        featureType: "transit.station",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }],
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "geometry",
+                        stylers: [{ color: "#17263c" }],
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#515c6d" }],
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "labels.text.stroke",
+                        stylers: [{ color: "#17263c" }],
+                    },
+                    ],
+                
+            });
+
+            
+
+            infowindow = new google.maps.InfoWindow();
+            
+            marker_clicked = function()
+            {
+                
+                infowindow.close();
+                infowindow.setContent(this.information);
+                infowindow.open(map, this);
+                
+                
+
+            }
+
+            let markers = [];
+            let markersHospital = [];
+            let markersPolice = [];
+            
+
+
+            //Fire Stations
+            for (i=0; i< fire_stations.length; i++)
+            {
+                if (fire_stations[i].properties.COMMUNITY == "Flamborough")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/F.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Hamilton")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/H.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Ancaster")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/A.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Dundas")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/D.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Stoney Creek")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/S.png";
+                else if(fire_stations[i].properties.COMMUNITY == "Glanbrook")
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/G.png";
+                else 
+                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/red-stars.png";
+
+
+                var contentString =   "<b><h3>Name: </b>" + fire_stations[i].properties.NAME + '</h3>'+ '<br>' + "<b>Location: </b>" + fire_stations[i].properties.ADDRESS + '<br><br>' + "<b>Community location: </b>" + fire_stations[i].properties.COMMUNITY,
+
+                marker_fire_stations = new google.maps.Marker({
+                    position: {lat: parseFloat(fire_stations[i].properties.LATITUDE),
+                               lng: parseFloat(fire_stations[i].properties.LONGITUDE)},
+                               title: fire_stations[i].properties.NAME,
+                               information: contentString,
+                               icon: new_icon
+                    });
+
+                marker_fire_stations.setMap(map);
+                marker_fire_stations.HES_EMS = fire_stations[i].properties.HES_EMS;
+                marker_fire_stations.addListener("click", marker_clicked);
+                markers.push(marker_fire_stations);
+                markersHospital.push(marker_fire_stations);
+                markersPolice.push(marker_fire_stations);
+
+            }
+
+            //Filtering for Fire Station Only
+            function filterFireStation()
+            {
+                for (i=0; i<markers.length; i++)
+                {
+                    if (markers[i].HES_EMS == "Yes" || markers[i].HES_EMS == "No")
+                    markers[i].setMap(map);
+                    else 
+                        markers[i].setMap(null);
+                }
+            }
+
+            document.getElementById("fire_Service").onclick =filterFireStation;
+            
+            
+            // Hospitals
+            for (x=0; x< hospitals.length; x++)
+            {
+                var contentStringHospital =   "<b><h3>Name: </b>" + hospitals[x].properties.NAME + '</h3>'+ '<br>' + "<b>Location: </b>" + hospitals[x].properties.ADDRESS + '<br><br>' + "<b>Type of Care: </b>" + hospitals[x].properties.TYPE,
+
+                marker_hospitals = new google.maps.Marker({
+                    position: {lat: parseFloat(hospitals[x].properties.LATITUDE),
+                               lng: parseFloat(hospitals[x].properties.LONGITUDE)},
+                    title: hospitals[x].properties.NAME,
+                    information: contentStringHospital,
+                    icon: new_icon = "http://maps.google.com/mapfiles/kml/pal4/icon55.png"
+                });
+
+                marker_hospitals.setMap(map);
+                marker_hospitals.HOSPITAL = hospitals[x].properties.HOSPITAL;
+                marker_hospitals.addListener("click", marker_clicked);
+                markers.push(marker_hospitals);
+                markersHospital.push(marker_hospitals);
+                markersPolice.push(marker_hospitals);
+
+            }
+
+            //Filtering for Hospitals Only
+            function filterHospital()
+            {
+                for (x=0; x<markersHospital.length; x++)
+                {
+                    if (markersHospital[x].HOSPITAL)
+                    markersHospital[x].setMap(map);
+                    else 
+                        markersHospital[x].setMap(null);
+                }
+            }
+
+            document.getElementById("hospital_Service").onclick =filterHospital;
+
+            
+            // Police Stations
+            for (y=0; y< police_stations.length; y++)
+            {
+                var contentStringPolice =   "<b><h3>Police Station: </b>" + police_stations[y].properties.NAME + '</h3>'+ '<br>' + "<b>Location: </b>" + police_stations[y].properties.ADDRESS + '<br><br>' + "<b>Station Number: </b>" + police_stations[y].properties.STATION,
+
+                marker_police_stations = new google.maps.Marker({
+                    position: {lat: parseFloat(police_stations[y].properties.LATITUDE),
+                               lng: parseFloat(police_stations[y].properties.LONGITUDE)},
+                    title: police_stations[y].properties.NAME,
+                    information: contentStringPolice,
+                    icon: new_icon = "http://maps.google.com/mapfiles/kml/pal4/icon39.png"
+                });
+
+                marker_police_stations.setMap(map);
+                marker_police_stations.STATION = police_stations[y].properties.STATION;
+                marker_police_stations.addListener("click", marker_clicked);
+                markers.push(marker_police_stations);
+                markersHospital.push(marker_police_stations);
+                markersPolice.push(marker_police_stations);
+            }
+
+
+            //Filtering for Police Stations only
+            function filterPolice()
+            {
+                for (y=0; y<markersHospital.length; y++)
+                {
+                    if (markersPolice[y].STATION)
+                    markersPolice[y].setMap(map);
+                    else 
+                        markersPolice[y].setMap(null);
+                }
+            }
+
+            document.getElementById("police_Service").onclick =filterPolice;
+
+
+            //Returning all markers on the map regardless of Emergency Service
+            function allServices()
+            {
+                for(i = 0; i< markers.length; i++)
+                {
+                    markers[i].setMap(map);
+                }
+            }
+            document.getElementById("add_Services").onclick = allServices;
+            var pos;
+
+            
+
+            //Shows your position on the map
+            /*function showPositionOnMap(position)
+            {
+            
+                user_location = new google.maps.Marker({
+                    position: {lat: position.coords.latitude, 
+                               lng: position.coords.longitude},
+
+                    title: "Your Position",
+                    //icon: "http://maps.google.com/mapfiles/kml/pal3/icon56.png",
+                    
+                });
+            
+            
+                user_location.setMap(map);
+            }*/
+            
+            document.getElementById("Geolocate").onclick = function()
+            {
+                if(navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude,
+                            };
+                            
+                            user_location = new google.maps.Marker({
+                            position: {lat: position.coords.latitude, 
+                               lng: position.coords.longitude},
+
+                                title: "Your Position",
+                                icon: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
+                    
+                            });
+                            
+
+                            userLocation = pos;
+
+                            infowindow.setPosition(pos);
+                            infowindow.setContent(`
+                                
+                                <strong>Your Location</strong><br>
+                                Latitude: ${pos.lat}<br>
+                                Longitude: ${pos.lng}`
+                            );
+                            infowindow.open(map);
+                            user_location.setMap(map);
+
+                        map.setCenter(pos);
+                    },
+                    () => {
+                        handleLocationError(true, infowindow, map.getCenter());
+                    }
+
+                    );
+                } 
+                else
+                {
+                    handleLocationError(false, infowindow, map.getCenter());
+                }
+
+            }
+
+            var dropdown = "";
+                
+                for(var z = 0; z < all_emergency.length;z++)
+                {
+                    dropdown += '<option value="' + all_emergency[z].properties.LATITUDE + all_emergency[z].properties.LONGITUDE + '">' + all_emergency[z].properties.ADDRESS + "</option>"
+                    
+                }
+                
+            
+            document.getElementById('all_emergency').innerHTML = dropdown;
+
+            //Geocoding Portion
+            geocoder = new google.maps.Geocoder();
+
+            //Directions Portion
+            directionsRenderer.setMap(map);
+
+            
+            //button.onclick = function() 
+            //{
+                //destination.assign(dropdown);
+            //}
+            
+            document.getElementById("Directions").onclick = dropdown;
+            function displayDirections(destination)
+            {
+                clearMarkers();
+
+
+                directionsRenderer.setMap(map);
+                
+
+                request = 
+                {
+                    origin: userLocation,
+                    destination: dropdown,
+                    travelMode: 'DRIVING'
+                };
+
+                directionsService.route(request, function(result,status){
+                
+                if(status == 'OK')
+                {
+                    DirectionsRenderer.setDirections(result);
+                }
+                });
+
+            }
+            
+
+            function codeAddress()
+            {
+                let address = document.getElementById("address").value;
+                var dest=[];
+
+                geocoder.geocode( {'address': address }, function(results,status){
+
+                if (status == 'OK')
+                {
+                    document.getElementById("coords").innerHTML 
+                    = "Coordinates: " + results[0].geometry.location.lat().toFixed(3) + ", " + 
+                                   results[0].geometry.location.lng().toFixed(3);
+
+                    
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map,
+                        icon: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
+                    });
+
+                    
+                }
+                else
+                {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+
+            });
+            }
+
+            document.getElementById("geocode").onclick= codeAddress;
+
+
+            function handleLocationError(browserGeolocation, infowindow, pos) 
+            {   
+            let errorMessage = browserGeolocation ? "Error: Cannot Find Geolocation " : "Error: Browser does not support geolocation service";
+            infowindow.setPosition(pos);
+            infowindow.setContent(errorMessage);
+            infowindow.open(map);
+
+            $('#gelocation-message .modal-body p').text(errorMessage);
+            $('#geolocation-message').modal('show');
+            }
+
+            }
+            
+        }
+        
+    </script>
+    
+   
+</body>
+
+</html>

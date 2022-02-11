@@ -1,0 +1,15 @@
+StAuth10244: I Ali El Cheikh Ali, 000760145 certify that this material is my original work. No other person's work has been used without due acknowledgement. I have not made my work available to anyone else.
+
+Emergency Service Locator
+
+I've built this app for someone who wants to view the emergency services within Hamilton and the HGA (Hamilton Greater Area). It also show cases the fire stations in a letter coded marker, F for Flamborough region, A for Ancaster region, H for Hamilton region, S for Stoney Creek region, G for Glanbrook region, and D for Dundas region. 
+
+You can also view the hospitals and police stations within the region, which have red cross and star markers respectively. Filters on the bottom left are used to filter out each emergency service on the map. 
+
+I personally thought it was surprising to see how little amount of hospitals and police stations we have for this vast area. 
+
+Feature:
+
+I chose to add a dark and light mode as my extra feature. I personally use dark mode for all of my devices now, and I thought that implementing it for the map would be a good idea for the user. 
+
+How to use: Top right of the map, you will see "Dark mode" and "Light mode" buttons, clicking on the "Dark Mode" button will change the map to dark mode, and clicking the "Light mode" will change the map back to the default light mode.
